@@ -4,8 +4,8 @@
 * If User not signedin/signup yet, show all pages as realistic to a signedin user as possible, but replace notifications with dummy notification that advertise the ESova App and only the signup field in the skilltree is available
 
 <a id="namespace"></a>
-## Namespace (Sitemap) Schema
-* `skilltree/`
+# Namespace (Sitemap)
+* `skilltree/` and `/`
 * `username/`
 * `users/`
 * `users/finishedLessonX`
@@ -14,7 +14,7 @@
 * `lessonX/` (only available to users who have it unlocked)
 * `lessonX/users`
 
-## Github Integration
+# Github Integration
 * see https://github.com/michael/github and others on [npm](https://www.npmjs.com/search?q=github)
 * this guy has some nice github libraries: https://github.com/rvagg?tab=repositories
 
@@ -36,6 +36,9 @@
   * commit messages are checked to know user status on esova program
   * Example Content: `index.html, index.css, index.js, README.md`
 * ...
+
+# "STATIC PAGE ELEMENTS"
+Below follows a list of page elements that will be present on every subpage of the esova web app. You can find all these elements on the wireframes too.
 
 ## Logo (=Home Button)
 **.onTouch:**
@@ -70,7 +73,7 @@ By default, every `user` follows every other `user` and `repository`
 and needs to unfollow if some notifications are not wanted
 
 **community.onTouch:**
-* *open* `news dropdown` to show activity of esova community
+* *show* `news dropdown` to show activity of esova community
   * (see [github feed](github.com/) filtered for esova related stuff  - check esova signed commit messages)
   > **Example Item:**
     * `Marko` created repoistory **Lesson 5** (`Demo` / `Source`)
@@ -83,7 +86,7 @@ and needs to unfollow if some notifications are not wanted
   * *remove* item from list
 
 **myactivity.onTouch:**
-* *open* `activity dropdown` to show activity my activity
+* *show* `activity dropdown` to show activity my activity
   * (see [github user feed](https://github.com/MatijaDjumic?tab=activity) filtered for esova related stuff - check esova signed commit messages)
   > **Example Item:**
     * Same as `Community News` but just one's own activities
@@ -94,10 +97,10 @@ and needs to unfollow if some notifications are not wanted
   * *remove* item from list
 
 **messages.onTouch:**
-* *open* `messages` received via gitter
+* *show* `messages` received via gitter
   * (see [gitter sidebar](https://gitter.im/) filtered for esova related chats that have new messages waiting)
 * **message.onTouch:** (only available if associated with an esova page)
-  * *goto* gitter chatroom in new tab
+  * *open* gitter chatroom in new window/tab
 * **message-remove.onTouch:**
   * *remove* item from list
 
@@ -106,7 +109,7 @@ and needs to unfollow if some notifications are not wanted
 Shows anonymous avatar and `Signup / Signin`
 
 **signup.onTouch:**
-* *open* `signup dropdown form`
+* *show* `signup dropdown form`
   * Fill out: `username`, `password`, `email` and `signup code`
   * Ask for existing `github account`
   * **submit.onTouch:**
@@ -130,20 +133,18 @@ Shows anonymous avatar and `Signup / Signin`
 Shows Users username and avatar
 
 **profile.onTouch:**
-* *open* `profile dropdown`
+* *show* `profile dropdown`
   * **profilepage.onTouch:**
     * *goto* `username/` page
   * **signout.onTouch:**
     * sign out
-
-
 
 ## ESova Owl
 Function of Wizard/Assistant  
 (THINK: Microsoft Office Clipper Mascot)
 
 **chatwithus.onTouch:**
-  * *open* `esova gitter chat in new tab`
+  * *open* `esova gitter chat in new window/tab`
 
 **questionmark.onTouch:**
   * *start* `alt text/tooltip wizard` to explain current page
@@ -164,13 +165,14 @@ There can be one or multiple hints in every lesson depending on video progress
       * (e.g. Hey, try to get help in the chat (link to this lesson's gitter chat to open in new window/tab))
 
 
----
-
-# !!! Everything below is in progress !!!
-
----
+# "PAGES"
+Below follows a list of pages. You can find all these on the wireframes too.
 
 ## `PAGE` skilltree
+* Lesson Zero:
+  * After Signup, the signup badge is earned and stats include all users.
+  * **.onTouch:** goto `users/`
+* Lesson One: see `Welcome` under ([`PAGE` lesson](#lesson))
 * is `HOME PAGE`
 * has `skilltree` with `skillfields` and a `skilldescription overlay popup`
 * each `skillfield` has a corresponding repository that contains all related content
@@ -185,15 +187,12 @@ There can be one or multiple hints in every lesson depending on video progress
     3. `unlocked and finished`: full color
       * all **required** "parent" lessons and the skill itself are solved
   * **.onTouch:**
-    * *opens* `skilldescription overlay popup` for *touched* `skillfield`
+    * *show* `skilldescription overlay popup` for *touched* `skillfield`
 * **skilltree:**
   * inspiration: see http://www.dungeonsanddevelopers.com/
-  * the information about `skillfields` comes from `lessonX` esova repositories
-  * the information about `skillfield` states comes from `userX-lessonX` repositories
-
-  * `users/`
-  * `users/finishedLessonX`
-
+  * the information about `skillfields` comes from `ESova/lessonX/` repositories
+    * e.g. maybe json files with a convention to reference required lessons
+  * the information about `skillfield` states comes from `ESova/userX-lessonX` repositories
 * **skilldescription overlay popup:**
   - has Title
   - has Stats (#CurrentLearners | #LessonFinishers | avg.FinishTime)
@@ -203,13 +202,81 @@ There can be one or multiple hints in every lesson depending on video progress
       * `if unlocked:` *goto* `lessonX/`
       * `if locked:` esova tells you to first do required lessons
     * **finishers.onTouch:**
-      * goto ``
-    * Show User List: who successfully finished the lesson already
-    * Go 2 Lesson's Gitter Chat in new window/tab
+      * *goto* `users/finishedLessonX` to see  who successfully finished the lesson already
+    * **chat.onTouch:**
+      * *open* `lessons gitter chat` by opening it in a new window/tab
 
+## `PAGE` profile *(user & others)*
+* available under `username/`
+* View differs for `SignedIn User` and `Other User` in:
+  * `Other User` - **Minimap with Avatar**
+    * **message.onTouch:** (touch button switches label)
+      * `goto` `gitter chat with user` by opening it in a new window/tab
+    * **(un)follow.onTouch:**
+      * (un)receive update messages related to user in `notifications`
+  * `Current User` - **Minimap with Avatar**
+    * **conversations.onTouch:**
+      * `goto` `gitter chat` by opening it in a new window/tab
+    * **edit/save.onTouch:** (touch button switches label)
+      * `turn` `avatar picture` and `infobox` into form to update and save
+* has **Infobox**
+  * has **Fields**
+    * Avatar / Picture
+    * First name
+    * Last Name
+    * Location
+    * bio / about me text
+    * name of school / organization
+    * custom links (titles+urls)
+      * default link is to github, but user can add more
+      * offeres to link twitter account => shows last 3 tweets if user connects
+  * has **Stats**
+    * number of followers
+      * **followedBy.onTouch:** *goto* `username/followedBy/`
+    * number followed
+      * **follows.onTouch:** *goto* `username/follows/`
+    * number of earned badges
+  * has **Activity Wall**
+    * total time invested
+    * Last X activities (see activity wall in top menu)
+* has **Portfolio**
+  * each `Card` represents one finished lesson (repository)
+  * **Card:**
+    * badge picture symbol
+    * link to demo gh-page
+      * **demo.onTouch:** *open* gh-page in new window/tab
+    * link to source code
+      * **source.onTouch:** *open* github repository source in new window/tab
+
+## `PAGE` users
+Shows a List of users with different four available filters:
+* `users/`
+* `users/finishedLessonX`
+* `username/follows/`
+* `username/followedBy/`
+* has many `Users`
+* **User:**
+  * has `avatar picture`
+  * **user.onTouch:** *goto* `username/`
+  * **message.onTouch:** *open* `user gitter chat` in new window/tab
+  * **(un)follow.onTouch:** *(un)subscribe* to `user update notifications`
+  * has **stats**
+    * `#follows`
+    * `#followedBy`
+    * `#badgesEarned`
+
+<a id="lesson"></a>
 ## `PAGE` Lesson
-0. `Esova Owl` welcome's User and asks him to introduce herself/himself in the main chat
+* `Welcome Lesson`
+  * Is the first lesson
+  * `Esova Owl` welcome's User and asks him to introduce herself/himself in the main chat copy/pasting a customized snippet of markdown
+  * **validation:** check if user sent message to chat
 
+---
+# !!! EVERYTHING BELOW: Work in Progress !!!
+
+---
+* ...
 1. creates a user-name-lessonX repository if not present yet
 2. Checks last esova signed commit messages to know user progress in lesson
 3. in-between-commits commit messages can be used to resume a lesson
@@ -236,44 +303,3 @@ There can be one or multiple hints in every lesson depending on video progress
   * see: http://lucusp.github.io/CodePanion/ (maybe codepen)
   * see: https://jsbin.com/help/running-a-local-copy-of-jsbin
     * `jsin` can be self hosted or embeded
-
-
-## `PAGE` profile *(user & others)*
-MY vs. OTHERS
-* Minimap with Avatar
-  * has Send Message Button
-  * has Follow/Unfollow Button
-
-Avatar area: send message vs. follow/unfollow
-
-* Minimap with Avatar
-  * has Chat Button => Opens Gitter Chat in new window/tab
-  * Edit/Save Button => Edit InfoBox
-
-  * Infobox
-    * Fields:
-      * Avatar / Picture
-      * First name
-      * Last Name
-      * Location
-      * bio / about me text
-      * name of school / organization
-      * my links (titles+urls)
-        * default link is github, but user can add more
-        * offeres twitter account => shows last 3 tweets if user connects
-  * Stats
-    * number of followers => touch to come to follower page
-    * number followed
-    * number of badges
-  * Activity Wall
-    * total time invested
-    * Last X activities (see activity wall in top menu)
-  * Portfolio
-    * each card represents one finished lesson (repository)
-    * Card:
-      * badge picture symbol
-      * link to demo gh-page
-      * link to source code
-
-## `PAGE` users
-blablabla
