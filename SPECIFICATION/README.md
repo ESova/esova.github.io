@@ -168,11 +168,18 @@ There can be one or multiple hints in every lesson depending on video progress
 # "PAGES"
 Below follows a list of pages. You can find all these on the wireframes too.
 
-## `PAGE` skilltree
-* Lesson Zero:
-  * After Signup, the signup badge is earned and stats include all users.
-  * **.onTouch:** goto `users/`
-* Lesson One: see `Welcome` under ([`PAGE` lesson](#lesson))
+## `PAGE` `skilltree/`
+* **Lessons:**
+  * Lesson Zero:
+    * After Signup, the signup badge is earned and stats include all users.
+    * **.onTouch:** goto `users/`
+  * Lesson One: see `Welcome` under ([`PAGE` lesson](#lesson))
+    * `lesson1`
+      * name: `Welcome Lesson`
+      * Is the first lesson
+      * `Esova Owl` welcome's User and asks him to introduce herself/himself in the main chat copy/pasting a customized snippet of markdown
+      * **earnBadgeValidation:** check if user sent message to chat
+  * ... **@TODO:** More lessons will be created in the future ...
 * is `HOME PAGE`
 * has `skilltree` with `skillfields` and a `skilldescription overlay popup`
 * each `skillfield` has a corresponding repository that contains all related content
@@ -206,7 +213,7 @@ Below follows a list of pages. You can find all these on the wireframes too.
     * **chat.onTouch:**
       * *open* `lessons gitter chat` by opening it in a new window/tab
 
-## `PAGE` profile *(user & others)*
+## `PAGE` `username/` *(user & others)*
 * available under `username/`
 * View differs for `SignedIn User` and `Other User` in:
   * `Other User` - **Minimap with Avatar**
@@ -266,40 +273,41 @@ Shows a List of users with different four available filters:
     * `#badgesEarned`
 
 <a id="lesson"></a>
-## `PAGE` Lesson
-* `Welcome Lesson`
-  * Is the first lesson
-  * `Esova Owl` welcome's User and asks him to introduce herself/himself in the main chat copy/pasting a customized snippet of markdown
-  * **validation:** check if user sent message to chat
-
----
-# !!! EVERYTHING BELOW: Work in Progress !!!
-
----
-* ...
-1. creates a user-name-lessonX repository if not present yet
-2. Checks last esova signed commit messages to know user progress in lesson
-3. in-between-commits commit messages can be used to resume a lesson
-4. Commits one or multiple times during the lesson
-5. Last commit solves the lesson and assigns badge + unlock skill
-* Video
-  * In-Video-Quiz : to build cheatsheet and keep attention of user
+## `PAGE` `lessonX`
+* **.onLoad:**
+  1. creates a `username-lessonX/` repository if not present yet
+  2. Checks last esova signed commit messages to know user progress in lesson
+  3. in-between-commits commit messages can be used to resume a lesson
+* ESova Owl
+  * **lightbulb.onTouch:**
+    * ESova owl has different hints that become visible as an `hint overlay popup`
+* has `Video Area`
+  * **play/pause.onTouch:**
+    * *starts/stops* video lecture
+      * video can autopause multiple times at predefined times to show a `quiz`
+* has `Instructions Area`
+  * **.onLecture:** *hide* `quiz`
+  * **.onQuiz:** *show* `quiz`
     * Video pauses: questions appear in Instruction Box
-      * -> correct questions after submit -> video continues
-        * commits to "cheatsheet.md" the question+ right answer
-      * -> wrong question -> esova owl error Message
-  * ESova owl has different hints
-* Video cannot continue until the right answer(s) is chosen
-* Instructions (Challenge) Area -> after video finishes, video shrinks on half, other half shows Instructions
-* Tool(s) Area => to solve challenges e.g. editor, console, submit button, ...
-  * For Main Challenge: [JSBIN](jsbin.com) (HTML, CSS, JS, JSON, REGEX, SVG)
-  * For Quiz: Custom Form (e.g. inputfield, slider, checkboxes, ... whatever is needed)
-  * Github Integration:
-    * Submit Button: After Challenge finishes, user presses submit button
-      => Create ESoVa user lesson repository and commits content of JSBIN to that repository **user-lessonX** (Source + Page)
-      => With PREDEFINED COMMIT MESSAGE (signed commit message by esova app?)
-
-**editor:**
-  * see: http://lucusp.github.io/CodePanion/ (maybe codepen)
-  * see: https://jsbin.com/help/running-a-local-copy-of-jsbin
-    * `jsin` can be self hosted or embeded
+    * after video pauses, video shrinks on half, other half shows Instructions
+    * during a `quiz` the instruction area becomes visible and shows the question
+* has `Tools Area`
+  * has **EditorTools:**
+    * For Main Challenge: [JSBIN](jsbin.com) (HTML, CSS, JS, JSON, REGEX, SVG)
+    * For Quiz: Custom Form (e.g. inputfield, slider, checkboxes, ... whatever is needed)
+    * see: http://lucusp.github.io/CodePanion/ (maybe codepen)
+    * see: https://jsbin.com/help/running-a-local-copy-of-jsbin
+      * `jsin` can be self hosted or embeded
+  * **.onLectureVideoPlay:** *disable* `commit button`
+  * **.onQuiz:** *show* `commit button for quiz`
+    * In-Video-Quiz : to build cheatsheet and keep attention of user
+    * Video cannot continue until the right answer(s) is chosen
+  * **.onLectureVideoFinish:** *show* `commit button for task`
+  * **commit.onTouch:**
+    * if `task commit`:
+      * use given `tests` to validate user solution and if there is a problem, `ESova Owl` displays a hint or if the problem pops up 3 times or more, `ESova Owl` suggests to ask for help in `Lessons Gitter Chat`. If user solution passes all tests the result is committed to `username-lessonX` repository with `predefined commit message signed by esova` and `ESova Owl` congratulates.
+        * `User Solution`: **Content of JSBIN**
+    * if `quiz commit`:
+      * check correctness of answers and `ESova Owl` gives Feedback if there is a problem. If the answer is correct, `ESova Owl` congratulates, explains again why the answer is correct and commits the question with the right answer to the `username-lessonX/cheatsheet.md` with `predefined commit message signed by esova`
+      * -> wrong question -> esova owl displays error Message
+      * -> correct questions after submit -> esova owl congratulates, explains answer + video continues + commits to "cheatsheet.md" the question + right answer
