@@ -1,4 +1,7 @@
-Project by Vasic Media and Wizard.Amigos.Institute for Teaching kids in Serbia programming 
+# Esova
 
-
-[![Join the chat at https://gitter.im/ESova/Concept](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ESova/Concept?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+## Repository Structure
+1. `SPECIFICATION` contains wireframe jpegs and description in markdown
+2. `tests.html` contains some experiments with embedding existing services
+3. `.gitignore` ignores local `@TODO/`s
+4. `README.md` describes content of this repository
