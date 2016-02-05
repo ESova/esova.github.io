@@ -1,0 +1,32 @@
+<html>
+  <style>
+    body {
+      display         : flex;
+      margin          : 0;
+      justify-content : center;
+      align-items     : center;
+    }
+    iframe {
+      border          : 0;
+      width           : 100%;
+      height          : 100%;
+    }
+  </style>
+  <body>
+    <input type="text">
+    <script>
+      var source = localStorage.getItem("target")
+      if (source) {
+        document.body.innerHTML = '<iframe src="'+source+'"></iframe>'
+      } else {
+        var input = document.querySelector('input')
+        input.addEventListener('keypress', function (ev) {
+          if (ev.which === 13) {
+            localStorage.setItem("target", input.value)
+            location.reload()
+          }
+        })
+      }
+    </script>
+  </body>
+</html>
