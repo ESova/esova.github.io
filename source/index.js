@@ -5,13 +5,15 @@
 const db        = require('_data') // @TODO: -t findup-package-json
 const router    = require('_router')
 const engine    = require('_vcs2dom') // @TODO: fix vcs2dom
-// const auth      = require('_auth')
+const auth      = require('_auth')
 db.reset()
 /******************************************************************************
   CUSTOM
 ******************************************************************************/
-const notFound  = require('_vcs/404')
-const esova      = require('_vcs/esova')
+const PAGE = {
+  notFound  : require('_vcs/404'),
+  esova     : require('_vcs/esova')
+}
 // const ud        = require('ud')
 /******************************************************************************
   MAIN
@@ -22,18 +24,36 @@ const esova      = require('_vcs/esova')
 /******************************************************************************
   MAIN
 ******************************************************************************/
+var globalStyles = { }
+globalStyles["html"] = `
+  box-sizing: border-box;
+`
+globalStyles["*, *:before, *:after"] =  `
+  box-sizing: inherit;
+`
+globalStyles["body"] =  `
+  display: flex;
+  margin: 0;
+  flex-direction: row;
+  align-items: stretch;
+  background-color: #526E96;
+`
+
 const dbAuth  = db // db.sublevel('auth')
 const dbPage  = db // db.sublevel('page')
 const dbError = db // db.sublevel('error')
 
-function start (token) {
-  // if (token) {
-    var engine$ = engine('body') // engine(document.body)
-    const router$ = router(db, urlRouting, dataRouting)
-    router$.pipe(engine$)
-  // }
-}
 start()
+
+function start () {
+  var engine$ = engine({
+    target: 'body',
+    globalStyles: globalStyles
+  }) // engine(document.body)
+  const router$ = router(db, urlRouting, dataRouting)
+  router$.pipe(engine$)
+}
+
 /******************************************************************************
   HOT MODULE RELOADING
 ******************************************************************************/
@@ -46,9 +66,13 @@ start()
 /******************************************************************************
   HELPER - urlRouting
 ******************************************************************************/
+
 function urlRouting (router) {
-  router.addRoute('/', esova(dbPage))
-  router.addRoute('*', notFound(dbError))
+  // JSON.stringify(location) // for db.put('location.addressbar')
+  // for db.put('location.gps') ???
+
+  router.addRoute('/', PAGE.esova(dbPage))
+  router.addRoute('*', PAGE.notFound(dbError))
 }
 /******************************************************************************
   HELPER - dataRouting

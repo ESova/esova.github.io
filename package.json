@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "component-type": "^1.2.0",
+    "gitter-sidecar": "git+https://github.com/gitterHQ/sidecar.git#e99912bbb8df5e7e829851a2014700a53d4d181f",
     "main-loop": "^3.2.0",
     "ud": "^3.0.0",
     "virtual-dom": "^2.1.1"
