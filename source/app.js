@@ -42,18 +42,13 @@ function app (error, db) {
   if (error) throw error
 
   var globalStyles = { }
-  globalStyles["html"] = `
-    box-sizing: border-box;
-  `
-  globalStyles["*, *:before, *:after"] = `
-    box-sizing: inherit;
-  `
+  globalStyles["html"] = "box-sizing: border-box;"
+  globalStyles["*, *:before, *:after"] = "box-sizing: inherit;"
   globalStyles["body"] = `
-    display: flex;
     margin: 0;
-    flex-direction: row;
-    align-items: stretch;
-    background-color: #526E96;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   `
   var engine$ = engine({
     target: 'body', // document.body
