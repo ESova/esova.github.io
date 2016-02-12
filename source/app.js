@@ -2,19 +2,20 @@
 /******************************************************************************
   STACK
 ******************************************************************************/
-const db        = require('_data') // @TODO: -t findup-package-json
+const db        = require('_db') // @TODO: -t findup-package-json
 const router    = require('_router')
 const engine    = require('_vcs2dom') // @TODO: fix vcs2dom
 const auth      = require('_auth')
-db.reset()
+
+
 /******************************************************************************
   CUSTOM
 ******************************************************************************/
-const PAGE = {
-  notFound  : require('_vcs/404'),
-  esova     : require('_vcs/esova')
-}
 // const ud        = require('ud')
+var urlRouting  = require('_urlRouting')
+var dataRouting = require('_dataRouting')
+
+
 /******************************************************************************
   MAIN
 ******************************************************************************/
@@ -24,36 +25,46 @@ const PAGE = {
 /******************************************************************************
   MAIN
 ******************************************************************************/
-var globalStyles = { }
-globalStyles["html"] = `
-  box-sizing: border-box;
-`
-globalStyles["*, *:before, *:after"] =  `
-  box-sizing: inherit;
-`
-globalStyles["body"] =  `
-  display: flex;
-  margin: 0;
-  flex-direction: row;
-  align-items: stretch;
-  background-color: #526E96;
-`
+var opts = { force: true, testKeys: undefined }
+var data = [] //[{
+//   type: 'put',
+//   key: '!!esova-token',
+//   value: '7f106319ef7edab0661767afd4e7f5cf3333bf42'
+// },{
+//   type: 'put',
+//   key: '!!esova-promocode',
+//   value: 'codingamigos'
+// }]
 
-const dbAuth  = db // db.sublevel('auth')
-const dbPage  = db // db.sublevel('page')
-const dbError = db // db.sublevel('error')
+db(data, opts, app)
 
-start()
+function app (error, db) {
+  if (error) throw error
 
-function start () {
+  var globalStyles = { }
+  globalStyles["html"] = `
+    box-sizing: border-box;
+  `
+  globalStyles["*, *:before, *:after"] = `
+    box-sizing: inherit;
+  `
+  globalStyles["body"] = `
+    display: flex;
+    margin: 0;
+    flex-direction: row;
+    align-items: stretch;
+    background-color: #526E96;
+  `
   var engine$ = engine({
-    target: 'body',
+    target: 'body', // document.body
     globalStyles: globalStyles
-  }) // engine(document.body)
+  })
+
+  // @TODO: create root component here!
+
   const router$ = router(db, urlRouting, dataRouting)
   router$.pipe(engine$)
 }
-
 /******************************************************************************
   HOT MODULE RELOADING
 ******************************************************************************/
@@ -63,20 +74,3 @@ function start () {
 // var route = ROUTES.match("/posts/show/1.json")
 // ROUTES$.pipe(engine$)
 // route.fn.apply(null, '[req, res, route.params, route.splats]')
-/******************************************************************************
-  HELPER - urlRouting
-******************************************************************************/
-
-function urlRouting (router) {
-  // JSON.stringify(location) // for db.put('location.addressbar')
-  // for db.put('location.gps') ???
-
-  router.addRoute('/', PAGE.esova(dbPage))
-  router.addRoute('*', PAGE.notFound(dbError))
-}
-/******************************************************************************
-  HELPER - dataRouting
-******************************************************************************/
-function dataRouting (route) {
-  return undefined
-}
