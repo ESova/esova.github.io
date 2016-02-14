@@ -2,18 +2,22 @@
 /******************************************************************************
   STACK
 ******************************************************************************/
+require('source-map-support').install()
+const auth      = require('_auth')
 const db        = require('_db') // @TODO: -t findup-package-json
 const router    = require('_router')
 const engine    = require('_vcs2dom') // @TODO: fix vcs2dom
-const auth      = require('_auth')
+// const ud        = require('ud')
 
 
 /******************************************************************************
   CUSTOM
 ******************************************************************************/
-// const ud        = require('ud')
+// var dataInit    = require('_dataInit') // populate db with defaults
 var urlRouting  = require('_urlRouting')
-var dataRouting = require('_dataRouting')
+var dataRouting = require('_dataRouting') //
+// navigation { type:'navigate', key: 'location', val: 'window.location'}
+// var actionMapping = require('_actionMapping') // user input
 
 
 /******************************************************************************
@@ -26,21 +30,12 @@ var dataRouting = require('_dataRouting')
   MAIN
 ******************************************************************************/
 var opts = { force: true, testKeys: undefined }
-var data = [] //[{
-//   type: 'put',
-//   key: '!!esova-token',
-//   value: '7f106319ef7edab0661767afd4e7f5cf3333bf42'
-// },{
-//   type: 'put',
-//   key: '!!esova-promocode',
-//   value: 'codingamigos'
-// }]
+var data = []
 
 db(data, opts, app)
 
 function app (error, db) {
-  if (error) throw error
-
+  if (error) return
   var globalStyles = { }
   globalStyles["html"] = "box-sizing: border-box;"
   globalStyles["*, *:before, *:after"] = "box-sizing: inherit;"
