@@ -1,25 +1,21 @@
 'use strict'
+var sourcemaps  = require('source-map-support') // process.env == 'DEV' @TODO
+if (window.location.protocol !== "file:") sourcemaps.install()
 /******************************************************************************
   STACK
 ******************************************************************************/
-require('source-map-support').install()
 const auth      = require('_auth')
 const db        = require('_db') // @TODO: -t findup-package-json
 const router    = require('_router')
 const engine    = require('_vcs2dom') // @TODO: fix vcs2dom
 // const ud        = require('ud')
-
-
 /******************************************************************************
   CUSTOM
 ******************************************************************************/
 // var dataInit    = require('_dataInit') // populate db with defaults
 var urlRouting  = require('_urlRouting')
-var dataRouting = require('_dataRouting') //
-// navigation { type:'navigate', key: 'location', val: 'window.location'}
+var dataRouting = require('_dataRouting')
 // var actionMapping = require('_actionMapping') // user input
-
-
 /******************************************************************************
   MAIN
 ******************************************************************************/
@@ -31,6 +27,16 @@ var dataRouting = require('_dataRouting') //
 ******************************************************************************/
 var opts = { force: true, testKeys: undefined }
 var data = []
+var data = [{
+  type: 'put',
+  key: '!!esova-token',
+  value: '9117b8851eb4ee9b963fa05bf7a3761191cafc57'
+}]
+// var data = [{
+//   type: 'put',
+//   key: '!!esova-promocode',
+//   value: '123'
+// }]
 
 db(data, opts, app)
 
