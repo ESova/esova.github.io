@@ -1,6 +1,8 @@
 'use strict'
 var sourcemaps  = require('source-map-support') // process.env == 'DEV' @TODO
 if (window.location.protocol !== "file:") sourcemaps.install()
+var path        = require('path')
+var urify       = require('urify')
 /******************************************************************************
   STACK
 ******************************************************************************/
@@ -16,15 +18,6 @@ const engine    = require('_vcs2dom') // @TODO: fix vcs2dom
 var urlRouting  = require('_urlRouting')
 var dataRouting = require('_dataRouting')
 // var actionMapping = require('_actionMapping') // user input
-/******************************************************************************
-  MAIN
-******************************************************************************/
-// var ENGINE = ud.defonce(module, function (STATE, RENDER) { ... }, 'ENGINE')
-// var STATE = ud.defonce(module, function initialize () { ... }, 'STATE')
-// var ROUTES = ud.defobj(module, ROUTER(STATE))
-/******************************************************************************
-  MAIN
-******************************************************************************/
 var opts = { force: true, testKeys: undefined }
 var data = []
 var data = [{
@@ -37,20 +30,39 @@ var data = [{
 //   key: '!!esova-promocode',
 //   value: '123'
 // }]
-
+/******************************************************************************
+  ASSETS
+******************************************************************************/
+var src1 = urify(path.join(__dirname,'node_modules/_assets/Avenir-Roman.woff'))
+/******************************************************************************
+  LEGACY
+******************************************************************************/
+// var ENGINE = ud.defonce(module, function (STATE, RENDER) { ... }, 'ENGINE')
+// var STATE = ud.defonce(module, function initialize () { ... }, 'STATE')
+// var ROUTES = ud.defobj(module, ROUTER(STATE))
+/******************************************************************************
+  MAIN
+******************************************************************************/
 db(data, opts, app)
 
 function app (error, db) {
   if (error) return
-  var globalStyles = { }
-  globalStyles["html"] = "box-sizing: border-box;"
-  globalStyles["*, *:before, *:after"] = "box-sizing: inherit;"
-  globalStyles["body"] = `
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  `
+
+  var fonts =  {
+    'Avenir Roman': src1
+  }
+
+  var globalStyles = `html { box-sizing: border-box; }\n`+
+    `*, *:before, *:after { box-sizing: inherit; }\n`+
+    `body { margin: 0; display: flex; flex-flow: column; min-height: 100vh; }\n`
+
+  Object.keys(fonts).forEach(function (font) {
+    globalStyles += `@font-face {\n`+
+    `  font-family: ${font};\n`+
+    `  src: url(${fonts[font]});\n`+
+    `}\n`
+  })
+
   var engine$ = engine({
     target: 'body', // document.body
     globalStyles: globalStyles
