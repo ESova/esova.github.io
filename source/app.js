@@ -20,11 +20,13 @@ var dataRouting = require('_dataRouting')
 // var actionMapping = require('_actionMapping') // user input
 var opts = { force: true, testKeys: undefined }
 var data = []
-var data = [{
-  type: 'put',
-  key: '!!esova-token',
-  value: '9117b8851eb4ee9b963fa05bf7a3761191cafc57'
-}]
+// var data = [{
+//   type: 'put',
+//   // key: '!!esova-token',
+//   key: 'esova-token',
+//   value: '9117b8851eb4ee9b963fa05bf7a3761191cafc57'
+// }]
+
 // var data = [{
 //   type: 'put',
 //   key: '!!esova-promocode',
@@ -52,7 +54,8 @@ function app (error, db) {
     'Avenir Roman': src1
   }
 
-  var globalStyles = `html { box-sizing: border-box; }\n`+
+  var globalStyles =
+    `html { box-sizing: border-box; display: table; min-width: 100vw }\n`+
     `*, *:before, *:after { box-sizing: inherit; }\n`+
     `body { margin: 0; display: flex; flex-flow: column; min-height: 100vh; }\n`
 
