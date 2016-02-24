@@ -23,9 +23,11 @@
     var iframe = document.querySelector('iframe')
     window.addEventListener("message", receiveMessage)
     function receiveMessage(event) {
-      alert('parent receives')
-      alert(event)
-      debugger
+      // @TODO: the alert below works - it means it's triggered when
+      //        not commented out
+      // alert('parent receives')
+      // alert(event)
+      // debugger
 
       iframe.contentWindow.postMessage(msg, '*')
       var origin = event.origin || event.originalEvent.origin
