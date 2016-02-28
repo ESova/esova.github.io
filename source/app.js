@@ -7,6 +7,7 @@ var urify       = require('urify')
   STACK
 ******************************************************************************/
 const auth      = require('_auth')
+const levelgate = require('_level-gate')
 const db        = require('_db') // @TODO: -t findup-package-json
 const router    = require('_router')
 const engine    = require('_vcs2dom') // @TODO: fix vcs2dom
@@ -14,24 +15,22 @@ const engine    = require('_vcs2dom') // @TODO: fix vcs2dom
 /******************************************************************************
   CUSTOM
 ******************************************************************************/
-// var dataInit    = require('_dataInit') // populate db with defaults
-var urlRouting  = require('_urlRouting')
-var dataRouting = require('_dataRouting')
-// var actionMapping = require('_actionMapping') // user input
-var opts = { force: true, testKeys: undefined }
-var data = []
-// var data = [{
-//   type: 'put',
-//   // key: '!!esova-token',
-//   key: 'esova-token',
-//   value: '9117b8851eb4ee9b963fa05bf7a3761191cafc57'
-// }]
+// populate db with defaults
+var dataSourceMapping = require('_dataSourceMapping')
+// publish & spread changes from db
+var dataSinkMapping = require('_dataSinkMapping')
 
-// var data = [{
-//   type: 'put',
-//   key: '!!esova-promocode',
-//   value: '123'
-// }]
+var gate = levelgate(dataSourceMapping, dataSinkMapping)
+
+var urlRouting  = require('_urlRouting')
+
+var dataRouting = require('_dataRouting')
+
+var actionMapping = require('_actionMapping') // how to deal with user input
+                                        // maybe even from external network?
+
+var opts = { force: true, testKeys: undefined }
+
 /******************************************************************************
   ASSETS
 ******************************************************************************/
@@ -45,9 +44,12 @@ var src1 = urify(path.join(__dirname,'node_modules/_assets/Avenir-Roman.woff'))
 /******************************************************************************
   MAIN
 ******************************************************************************/
-db(data, opts, app)
+db(opts, app)
 
 function app (error, db) {
+
+  gate.pipe(db).pipe(gate)
+
   if (error) return
 
   var fonts =  {
