@@ -1,11 +1,15 @@
 {
+  "overlay/promocode/button:startnow": "Počnite sa lekcijama",
+  "overlay/promocode/button:signup": "Potvrdi",
+  "overlay/promocode/placeholder": "Upišite svoju kodu",
+  "overlay/promocode:notready": "Kreiranje eSova naloga je moguće na kraju četvrte lekcije.",
+  "overlay/promocode:wrong": "Uneli ste pogrešan kod, pokušajte ponovo.",
   "home:anon": "Lessons",
   "home:user": "My Lesson",
-  "messages": "Messages",
   "profile:anon": "Sign In",
   "lesson": "Lesson",
   "time": "min",
   "start": "Start Lesson",
   "chat:anon": "Complete the first 4 lessons and then sign up before you can chat",
-  "overlay": "..."
+  "messages": "Messages"
 }
