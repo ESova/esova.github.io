@@ -1,9 +1,8 @@
 {
-  "overlay/promocode/button:startnow": "Upišite se!",
+  "overlay/promocode/button:startnow": "Već imate eSova nalog? Upišite se!",
   "overlay/promocode/button:signup": "Potvrdi",
   "overlay/promocode/placeholder": "Upišite svoju kodu",
   "overlay/promocode:notready": "Kreiranje eSova naloga je moguće na kraju četvrte lekcije.",
-  "overlay/promocode:notreadysignin": "Već imate eSova nalog?",
   "overlay/promocode:wrong": "Uneli ste pogrešan kod, pokušajte ponovo.",
   "home:anon": "Lekcije",
   "home:user": "Moja lekcija",
