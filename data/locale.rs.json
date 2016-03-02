@@ -4,7 +4,7 @@
   "overlay/promocode/placeholder": "Upišite svoju kodu",
   "overlay/promocode:notready": "Kreiranje eSova naloga je moguće na kraju četvrte lekcije.",
   "overlay/promocode:wrong": "Uneli ste pogrešan kod, pokušajte ponovo.",
-  "overlay/promocode:unmetrequirements": "Za ogled izabrane lekcije morate prvo da uspešno završite sve predhodne lekcije.",
+  "overlay/promocode:unmetrequirements": "Za prikaz odabrane lekcije morate prvo da uspešno završite sve predhodne lekcije.",
   "home:anon": "Lekcije",
   "home:user": "Moja lekcija",
   "profile:anon": "Upiši se",
