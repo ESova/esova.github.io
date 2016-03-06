@@ -6,7 +6,6 @@ var urify       = require('urify')
 /******************************************************************************
   STACK
 ******************************************************************************/
-const auth      = require('_auth')
 const levelgate = require('_level-gate')
 const db        = require('_db') // @TODO: -t findup-package-json
 const router    = require('_router')

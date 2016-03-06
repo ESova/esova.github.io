@@ -18,7 +18,7 @@
   "scripts": {
     "start": "npm run www & npm run watch",
     "bundle": "browserify -t findup-package-json source/index.js | uglifyjs -cm > public/browser/bundle.js",
-    "watch": "watchify source/app.js -p [ browserify-hmr -u http://$(my-local-ip):3123 -h 0.0.0.0 ] -p ghostmodeify  -t babelify -o public/browser/bundle.js -dv",
+    "watch": "watchify source/app.js -p [ browserify-hmr -u http://$(my-local-ip):3123 -h 0.0.0.0 ] -p ghostmodeify -t babelify -o public/browser/bundle.js -dv",
     "www": "ecstatic"
   },
   "devDependencies": {
