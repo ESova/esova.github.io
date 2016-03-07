@@ -1,4 +1,11 @@
 {
+  "lesson/slide/button/repeat":  "Čet pomoć",
+  "lesson/slide/button/chatSupport":  "Ponovite lekciju",
+  "lesson/slide/question/submit": "Potvrdite odgovor",
+  "lesson/slide/challenge/smallprint":  "i nastavite na sledeći korak",
+  "lesson/slide/button/challenge":  "Kliknite ovaj link",
+  "lesson/slide/bravo":  "BRAVO",
+  "lesson/slide/tryagain":  "TRY AGAIN",
   "overlay/promocode/button:startnow": "Počnite sa lekcijama",
   "overlay/promocode/button:signup": "Potvrdite",
   "overlay/promocode/placeholder": "Upišite svoju kodu",
