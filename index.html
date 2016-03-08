@@ -60,33 +60,33 @@
       ])
       function createProxy (basename, base, methods) {
         ;(function(){'use strict'
+        function getAdapter (basename, name) {
+          return name+".toString="+basename+'.'+name+
+            '.toString.bind('+basename+'.'+name+')\n'+
+            name+".name="+name+'\n'+"return "+name
+        }
+        function makeNewProxy (body, fn, name, org, func) {
+          var t = this
+          var length = t[name].length
+          var proxy = new Function('original', 'func', 't',
+            "function "+name+"("+getParameterNames(fn).join(',')+") {\n"+
+              'func.apply(t, arguments)\n'+
+              body+'\n'+
+              'return original.apply(t, arguments)\n'+
+            "}\n"+"return "+name
+            // "}\n"+getAdapter(basename,name)
+          )(org, func, t)
+          Object.defineProperty(proxy, 'length', {
+            get: function () { return length }
+          })
+          return proxy
+        }
           methods.forEach(function (name) {
             var original = base[name]
             var fn = functions[name]
             if (typeof fn === 'function') {
               var body = (fn+'').match(r)[1]
-              function getAdapter (basename, name) {
-                return name+".toString="+basename+'.'+name+
-                  '.toString.bind('+basename+'.'+name+')\n'+
-                  name+".name="+name+'\n'+"return "+name
-              }
-              var length = base[name].length
-              function makeNewProxy (org, func) {
-                var t = this
-                var proxy = new Function('original', 'func', 't',
-                  "function "+name+"("+getParameterNames(fn).join(',')+") {\n"+
-                    'func.apply(t, arguments)\n'+
-                    body+'\n'+
-                    'return original.apply(t, arguments)\n'+
-                  "}\n"+"return "+name
-                  // "}\n"+getAdapter(basename,name)
-                )(org, func, t)
-                Object.defineProperty(proxy, 'length', {
-                  get: function () { return length }
-                })
-                return proxy
-              }
-              var proxy = makeNewProxy.call(base, original, noop)
+              var proxy = makeNewProxy.call(base, body, fn, name, original, noop)
               Object.defineProperty(base,name,(function(f, F){
                 return {
                   get: function () {
