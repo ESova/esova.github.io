@@ -24,18 +24,18 @@
     var msg = { type: 'domain', value: 'esova' }
     var iframe = document.querySelector('iframe')
     window.addEventListener("message", receiveMessage)
+    // iframe.onload = function (event) {
+    //   iframe.contentWindow.postMessage('hello', '*')
+    // }
     function receiveMessage(event) {
-      // @TODO: the alert below works - it means it's triggered when
-      //        not commented out
-      // alert('parent receives')
-      // alert(event)
-      // debugger
-
-      iframe.contentWindow.postMessage(msg, '*')
       var origin = event.origin || event.originalEvent.origin
       // For Chrome, the origin property is in event.originalEvent
-      if (origin !== "http://example.org:8080") return
-      else console.log(event)
+      if (origin === "http://example.org:8080") return // possible filter
+      else {
+        console.log(event)
+        debugger
+        iframe.contentWindow.postMessage(msg, '*')
+      }
     }
     // @TODO: exchange "routing state"
     // postMessage({ type: 'syncRouteScript', value: proxyNatives })
