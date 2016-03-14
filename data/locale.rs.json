@@ -8,7 +8,7 @@
   "lesson/slide/tryagain.image":  "https://raw.githubusercontent.com/ESova/esova.github.io/master/data/tryagain.rs.png",
   "overlay/promocode/button:startnow": "Počnite sa lekcijama",
   "overlay/promocode/button:signup": "Potvrdite",
-  "overlay/promocode/placeholder": "Upišite svoju kodu",
+  "overlay/promocode/placeholder": "Upišite svoj kod",
   "overlay/promocode:notready": "Kreiranje eSova naloga je moguće na kraju četvrte lekcije.",
   "overlay/promocode:haveanaccount": "Već imate eSova nalog? Upišite se ovde!",
   "overlay/promocode:wrong": "Uneli ste pogrešan kod, pokušajte ponovo.",
