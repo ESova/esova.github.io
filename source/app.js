@@ -19,7 +19,7 @@ const engine    = require('_vcs2dom') // @TODO: fix vcs2dom
   function receiveMessage(event) {
     var origin = event.origin || event.originalEvent.origin
     // For Chrome, the origin property is in the event.originalEvent object.
-    if (origin === "http://fast.wistia.com") return
+    if (origin === "http://fast.wistia.net") return
     else {
       debugger
       window.parent.postMessage('world2', origin)
