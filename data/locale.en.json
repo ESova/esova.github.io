@@ -13,6 +13,7 @@
   "overlay/promocode:haveanaccount": "Već imate eSova nalog? Upišite se ovde!",
   "overlay/promocode:wrong": "Uneli ste pogrešan kod, pokušajte ponovo.",
   "overlay/promocode:unmetrequirements": "Za prikaz odabrane lekcije morate prvo da uspešno završite sve predhodne lekcije.",
+  "overlay/promocode:speedlimit": "You go to fast",
   "overlay/promocode/welcome": "Welcome to",
   "home:anon": "Lessons",
   "home:user": "My Lesson",

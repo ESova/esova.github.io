@@ -21,7 +21,7 @@ const engine    = require('_vcs2dom') // @TODO: fix vcs2dom
     // For Chrome, the origin property is in the event.originalEvent object.
     if (origin === "http://fast.wistia.net") return
     else {
-      debugger
+      console.error('@TODO: loader')
       window.parent.postMessage('world2', origin)
     }
   }
