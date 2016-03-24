@@ -17,13 +17,12 @@ const engine    = require('_vcs2dom') // @TODO: fix vcs2dom
   // document.domain = '0.0.0.0'
   // @TODO: set via ENV depending on mode DEV vs PROD
   // var origin = 'http://0.0.0.0:8000'
-  var origin = '*'
+  var selforigin = '*'
   window.addEventListener("message", receiveMessage, false)
   function receiveMessage(event) { // ESOVA APP
-    var origin = event.origin || event.originalEvent.origin
-    // For Chrome, the origin property is in the event.originalEvent object.
+    var origin = event.origin
     if (origin === "http://fast.wistia.com") return
-    else window.parent.postMessage('OK', origin)
+    else window.parent.postMessage('OK', selforigin)
   }
 }())
 /******************************************************************************

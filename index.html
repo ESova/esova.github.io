@@ -23,8 +23,8 @@
     'use strict'
     // document.domain = '0.0.0.0'
     // @TODO: set via ENV depending on mode DEV vs PROD
-    // var origin = 'http://0.0.0.0:8000'
-    var origin = '*'
+    // var selforigin = 'http://0.0.0.0:8000'
+    var selforigin = '*'
     var msg = { type: 'domain', value: 'app.esova.rs' }
     var iframe = document.querySelector('iframe')
     window.addEventListener("message", receiveMessage)
@@ -32,14 +32,13 @@
       // @TODO: exchange "routing state"
       // postMessage({ type: 'syncRouteScript', value: proxyNatives })
       // posteMessage({ type: 'route', value: location })
-      iframe.contentWindow.postMessage(msg, origin)
+      iframe.contentWindow.postMessage(msg, selforigin)
       // RUST OWNERSHIP MODEL with:
       // postmessage(_,_,transferableObjects)
     }
     function receiveMessage(event) { // ROOT
-      debugger
-      var origin = event.origin || event.originalEvent.origin
-      // For Chrome, the origin property is in event.originalEvent
+      if (event.srcElement === window) return
+      var origin = event.origin
       if (origin === "http://example.org:8080") return // possible filter
       else {
         console.log(event)
