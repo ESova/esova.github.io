@@ -18,28 +18,34 @@
     <button onclick="gogo3()">change3</button>
     <button onclick="gogo4()">change4</button><br><br>
     <button onclick="gogoPush1()">push1</button> -->
-
     <iframe src="public/browser/index.html"></iframe>
     <script>
-    var msg = { type: 'domain', value: 'esova' }
+    'use strict'
+    // document.domain = '0.0.0.0'
+    // @TODO: set via ENV depending on mode DEV vs PROD
+    // var origin = 'http://0.0.0.0:8000'
+    var origin = '*'
+    var msg = { type: 'domain', value: 'app.esova.rs' }
     var iframe = document.querySelector('iframe')
     window.addEventListener("message", receiveMessage)
-    // iframe.onload = function (event) {
-    //   iframe.contentWindow.postMessage('hello', '*')
-    // }
-    function receiveMessage(event) {
+    iframe.onload = function (event) {
+      // @TODO: exchange "routing state"
+      // postMessage({ type: 'syncRouteScript', value: proxyNatives })
+      // posteMessage({ type: 'route', value: location })
+      iframe.contentWindow.postMessage(msg, origin)
+      // RUST OWNERSHIP MODEL with:
+      // postmessage(_,_,transferableObjects)
+    }
+    function receiveMessage(event) { // ROOT
+      debugger
       var origin = event.origin || event.originalEvent.origin
       // For Chrome, the origin property is in event.originalEvent
       if (origin === "http://example.org:8080") return // possible filter
       else {
         console.log(event)
-        debugger
         // iframe.contentWindow.postMessage(msg, '*')
       }
     }
-    // @TODO: exchange "routing state"
-    // postMessage({ type: 'syncRouteScript', value: proxyNatives })
-    // posteMessage({ type: 'route', value: location })
 ///////////////////////////////////////////////////////////////////////////
     // @TODO: inject this script into parent via postMessage, but:
     // HASH it and make parent PROOF that it's the correct hash
